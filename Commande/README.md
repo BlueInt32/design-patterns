@@ -1,6 +1,6 @@
 Pattern Commande
 
-* Définition officielle : le pattern commande encapsule une requête en tant qu'objet (COMMANDE CONCRETE), autorisant ainsi le paramétrage des clients par différentes requêtes, files d'attente et récapitulatifs de requêtes, et de plus, permettant la réversibilité des opérations.
+* Définition officielle : le pattern commande encapsule une requête en tant qu'objet, autorisant ainsi le paramétrage des clients par différentes requêtes, files d'attente et récapitulatifs de requêtes, et de plus, permettant la réversibilité des opérations.
 
 * Contexte d'application du pattern Commande est le suivant : 
 - plusieurs éléments effectuent des actions hétérogènes (i.e. n'implémentent pas nécéssairement d'interface commune)
