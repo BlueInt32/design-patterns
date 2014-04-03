@@ -3,10 +3,10 @@
 // par différentes requêtes, files d'attente et récapitulatifs de requêtes, et de plus, permettant la 
 // réversibilité des opérations.
 
-// CLIENT du pattern
+// CLIENT du pattern : il instancie LES RECEPTEURS et l'INVOCATEUR, l'initialise avec les RECEPTEURS 
+// et appelle les commandes de l'INVOCATEUR (mais ces taches peuvent être effectuées par des CLIENTS différents)
 void Main()
 {
-
 
 	PorteGarage porte = new PorteGarage();
 	TelecommandeSimple ts = new TelecommandeSimple();
@@ -18,16 +18,16 @@ void Main()
 }
 
 // INTERFACE DE COMMANDE : implémentée par les commandes concrètes, elle fournit une/plusieurs méthodes de commandes 
-// abstraites, utilisées par la télécommande
+// abstraites, appelées par INVOCATEUR
 public interface ICommande
 {
 	void executer();
 	void annuler();
 }
 
-// INVOCATEUR : c'est l'INVOCATEUR : il contient une/des commandes et les invoque en appelant 
-//leur méthode execute / annuler
-// Il est aussi instancié par le client, sinon comment veux-tu que le client il ouvre sa porte de garage..?
+// INVOCATEUR : il contient une/des commandes concrète et les invoque en appelant leur méthode execute / annuler
+// /!\ Il n'a aucune idée de la manière dont la lampe est allumée, d'ailleurs il ne sait meme pas si c'est une
+// lampe ou une porte de garage, car chaque RECEPTEUR est encapsulé dans une COMMANDE CONCRETE
 public class TelecommandeSimple
 {
 	ICommande emplacement;
@@ -41,7 +41,7 @@ public class TelecommandeSimple
 	public void Annuler (){ if(emplacement != null) emplacement.annuler(); }
 }
 
-// COMMANDES CONCRETES : elles contiennent une instance de RECEPTEUR et implémente INTERFACE DE COMMANDE
+// COMMANDES CONCRETES : elles contiennent une instance de RECEPTEUR et implémentent INTERFACE DE COMMANDE
 public class CommandeAllumerLampe : ICommande
 {
 	Lampe lampe;
@@ -92,7 +92,7 @@ public class CommandeAlarme : ICommande
 }
 
 // RECEPTEURS: ils savent comment effectuer le boulot. Ils sont instanciés par le CLIENT (ici main()) et 
-// passés par lui aux implémentations de INTERFACE DE COMMANDE
+// passés par lui aux INVOCATEURS
 public class Lampe
 {
 	public void Marche(){ Console.WriteLine("Allumer la Lampe !");	}
